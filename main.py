@@ -17,9 +17,9 @@ class GestorContactosApp:
     def __init__(self, maestro):
         self.maestro = maestro #Ventana principal de Tkinter
         maestro.title("Gestor de Contactos") #Título de la ventana
-        maestro.geometry("650x700") #Tamaño de la ventana
+        maestro.geometry("550x700") #Tamaño de la ventana
         maestro.resizable(False, False) #No deja redimensionar la ventana
-
+        
         #Lista de contactos en la memoria,lista central que gestiona la aplicación.
         self.contactos = []
 
