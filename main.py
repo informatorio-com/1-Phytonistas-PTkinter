@@ -230,17 +230,28 @@ class GestorContactosApp:
         print("Función 'al_editar_contacto' ejecutada. (Implementar la lógica de edición)")
         pass
 
-    #Función para eliminar un contacto, no implementada aún
+    #Función para eliminar un contacto
     def al_eliminar_contacto(self):
-        """
-        Esqueleto: Manejador para el botón 'Eliminar Contacto'.
-        Hay que implementar la lógica de eliminación de un contacto.
-        Por ahora, muestra un mensaje de acción pendiente.
-        """
-        messagebox.showinfo("Acción Pendiente", "Función 'Eliminar Contacto' debe ser implementada")
-        print("Función 'al_eliminar_contacto' ejecutada. (Implementar la lógica de eliminación)")
-        pass
+    """
+    Manejador para el botón 'Eliminar Contacto'.
+    Elimina el contacto seleccionado del Treeview.
+    """
+    selected_item = self.tree.selection()
 
+    if not selected_item:
+        messagebox.showwarning("Advertencia", "Debe seleccionar un contacto para eliminar.")
+        return
+
+    confirm = messagebox.askyesno("Confirmar eliminación", "¿Está seguro de que desea eliminar el contacto seleccionado?")
+    if not confirm:
+        return
+
+    for item in selected_item:
+        self.tree.delete(item)
+
+    messagebox.showinfo("Contacto eliminado", "El contacto fue eliminado exitosamente.")
+
+        
 
     #Lógica de Búsqueda de Contactos IMPLEMENTADA
     def al_buscar_contacto(self):
