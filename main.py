@@ -232,24 +232,31 @@ class GestorContactosApp:
 
     #Función para eliminar un contacto
     def al_eliminar_contacto(self):
-    """
-    Manejador para el botón 'Eliminar Contacto'.
-    Elimina el contacto seleccionado del Treeview.
-    """
-    selected_item = self.tree.selection()
+        """
+        Manejador para el botón 'Eliminar Contacto'.
+        Elimina el contacto seleccionado de la Listbox y de la lista en memoria,
+        y guarda los cambios.
+        """
+        selected_indices = self.listbox_contactos.curselection()
 
-    if not selected_item:
-        messagebox.showwarning("Advertencia", "Debe seleccionar un contacto para eliminar.")
-        return
+        if not selected_indices:
+            messagebox.showwarning("Advertencia", "Debe seleccionar un contacto para eliminar.")
+            return
 
-    confirm = messagebox.askyesno("Confirmar eliminación", "¿Está seguro de que desea eliminar el contacto seleccionado?")
-    if not confirm:
-        return
+        confirm = messagebox.askyesno("Confirmar eliminación", "¿Está seguro de que desea eliminar el contacto seleccionado?")
+        if not confirm:
+            return
+        index_a_eliminar = selected_indices[0]
+        nombre_contacto = self.contactos[index_a_eliminar]['nombre']
+        del self.contactos[index_a_eliminar] # Elimina el contacto de la lista en memoria
+        
+        self.guardar_contactos() # Guarda los cambios en el archivo CSV
+        self.actualizar_mostrar_contactos() # Actualiza la Listbox para que refleje la lista actualizada
+        self.limpiar_campos() # Opcional: limpiar los campos después de eliminar
 
-    for item in selected_item:
-        self.tree.delete(item)
-
-    messagebox.showinfo("Contacto eliminado", "El contacto fue eliminado exitosamente.")
+        messagebox.showinfo("Contacto eliminado", f"El contacto '{nombre_contacto}' fue eliminado exitosamente.")
+#Elimina el contacto seleccionado de la Listbox y de la lista en memoria, y guarda los cambios.
+       
 
         
 
